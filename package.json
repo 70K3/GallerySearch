@@ -1,0 +1,25 @@
+{
+  "name": "gallerysearch",
+  "version": "1.0.0",
+  "private":true,
+  "description": "web for search photo that you want find.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "55",
+  "license": "ISC",
+
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "node-restful": "^0.2.6"
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/70K3/GallerySearch.git"
+}
+  }
+}

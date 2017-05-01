@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<!-- Bootstrap CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="agl/angular.min.js" ></script>
+    <script src="agl/angular-resource.min.js" ></script>
+</head>
+<body>
+
+	<div class = "row">
+		<!-- Navbar -->
+      	<nav class="navbar navbar-inverse">
+ 		 	<div class="container-fluid">
+    			<div class="navbar-header">
+      				<a class="navbar-brand" href="index.html">Gallery Search</a>
+    			</div>
+    			<!-- <ul class="nav navbar-nav">
+      				<li><a href="#">...</a></li>
+      			</ul> -->
+  			</div>
+		</nav>
+	</div>
+
+	<div class = "row">
+		<div class = "container-fluid" ng-app="galleryApp" ng-controller="galleryController">
+			<div class="form-group">
+				<label>Flie : </label>
+				<input type="file" file-input="files"></input>
+				<label>Name file : </label>
+				<input type="text"></input>
+				<label>Type file : </label>
+				<input type="text"></input>
+				<button ng-click="uploadfile()" class="btn btn-default">upload</button><br>
+		</div>
+	</div>
+				
+</body>
+</html>
+
+<script>
+	var app = angular.module("galleryApp" ,[]);
+
+	app.directive("fileInput" , function($parse){
+		return{
+			link: function($scope, element ,attrs){
+				element.on("change",function(event){
+					var files = event.target.files;
+					//console.log(file[0].name)
+					$parse(attrs.fileInput).assign($scope, element[0].files);
+					$scope.$apply();
+				});
+			}
+		}
+	});
+
+	app.controller("galleryController" ,function($scope, $http){
+		$scope.uploadFile = function(){
+			var form_data = new FormData();
+			angular.forEach($scope.files, function(file){
+				form_data.append('file', file);
+			});
+			$http.post('upload.php',form_data),
+			{
+				transformRequest:angular.identity,
+				header: {'content-Type' : undefined, 'Process-Data': false}
+			}).success(function(response){
+				alert(response);
+			});
+		}
+	});
+</script>	
